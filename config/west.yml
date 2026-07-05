@@ -6,6 +6,8 @@ manifest:
       url-base: https://github.com/kumamuk-git
     - name: qtrnmr-gh
       url-base: https://github.com/qtrnmr
+    - name: caksoylar
+      url-base: https://github.com/caksoylar
   projects:
     - name: zmk
       remote: cormoran
@@ -39,5 +41,8 @@ manifest:
       # pre-"Migrate to zmk v4" release and keeps the full custom-RPC surface
       # against this v0.3-branch+dya base. Module `main` won't build here.
       revision: zmk-v0.3.0.0
+    - name: zmk-smart-toggle
+      remote: caksoylar
+      revision: main
   self:
     path: config
