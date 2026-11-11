@@ -174,6 +174,37 @@
             tapping-term-ms = <200>;
         };
 
+        // 英数: 1回押し = 英数 + ベースへ戻る、長押し = 修飾キー (2026-11-11)。
+        // 標準の hold-tap にしてあるのは、runtime-hold-tap の保存スロット番号
+        // (lt_to_* の 0-2) をずらさないため。
+
+        mod_eisu_apple: mod_eisu_apple {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <0>;
+            bindings = <&kp>, <&to_apple_default>;
+        };
+
+        mod_eisu_touch: mod_eisu_touch {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <0>;
+            bindings = <&kp>, <&to_apple_touch>;
+        };
+
+        mod_eisu_win: mod_eisu_win {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <0>;
+            bindings = <&kp>, <&to_layer_0>;
+        };
+
         encoder_msc_down_up: encoder_msc_down_up {
             compatible = "zmk,behavior-sensor-rotate";
             label = "ENCODER_MSC_DOWN_UP";
@@ -224,9 +255,9 @@
         APPLE {
             bindings = <
 &kp Q             &kp W      &kp E         &kp R                                 &kp T                                                                   &kp Y                 &kp U  &kp I               &kp O    &kp P
-&mt LEFT_GUI A    &kp S      &kp D         &kp F                                 &kp G            &kp K_MUTE                              &kp MINUS      &kp H                 &kp J  &kp K               &kp L    &kp SQT
+&kp A             &kp S      &kp D         &kp F                                 &kp G            &kp K_MUTE                              &kp MINUS      &kp H                 &kp J  &kp K               &kp L    &kp SQT
 &mt LEFT_SHIFT Z  &kp X      &kp C         &kp V                                 &kp B            &mo L_SETTING                           &kp SEMICOLON  &kp N                 &kp M  &lt L_SCROLL COMMA  &kp DOT  &lt L_APP SLASH
-&kp LEFT_GUI      &kp LCTRL  &kp LEFT_ALT  &lt_to_apple_default L_SETTING LANG2  &lt L_NUM SPACE  &lt_to_apple_default L_ARROW LANG1      &kp BACKSPACE  &lt L_FUNCTION ENTER                                      &kp DEL
+&kp LEFT_GUI      &kp LCTRL  &kp LEFT_ALT  &mod_eisu_apple LEFT_GUI LANG2        &lt L_NUM SPACE  &lt_to_apple_default L_ARROW LANG1      &kp BACKSPACE  &lt L_FUNCTION ENTER                                      &kp RIGHT_SHIFT
             >;
 
             sensor-bindings = <&encoder_vol_down_up>;
@@ -235,9 +266,9 @@
         DEFAULT {
             bindings = <
 &kp Q               &kp W         &kp E         &kp R                           &kp T                                                             &kp Y                 &kp U  &kp I               &kp O    &kp P
-&mt LEFT_CONTROL A  &kp S         &kp D         &kp F                           &kp G            &kp K_MUTE                        &kp MINUS      &kp H                 &kp J  &kp K               &kp L    &kp SQT
+&kp A               &kp S         &kp D         &kp F                           &kp G            &kp K_MUTE                        &kp MINUS      &kp H                 &kp J  &kp K               &kp L    &kp SQT
 &mt LEFT_SHIFT Z    &kp X         &kp C         &kp V                           &kp B            &mo L_SETTING                     &kp SEMICOLON  &kp N                 &kp M  &lt L_SCROLL COMMA  &kp DOT  &lt L_APP SLASH
-&kp LCTRL           &kp LEFT_WIN  &kp LEFT_ALT  &lt_to_layer_0 L_SETTING LANG2  &lt L_NUM SPACE  &lt_to_layer_0 L_ARROW LANG1      &kp BACKSPACE  &lt L_FUNCTION ENTER                                      &kp DEL
+&kp LCTRL           &kp LEFT_WIN  &kp LEFT_ALT  &mod_eisu_win LEFT_CONTROL LANG2  &lt L_NUM SPACE  &lt_to_layer_0 L_ARROW LANG1      &kp BACKSPACE  &lt L_FUNCTION ENTER                                      &kp RIGHT_SHIFT
             >;
 
             sensor-bindings = <&encoder_vol_down_up>;
@@ -246,9 +277,9 @@
         APPLE_TOUCH {
             bindings = <
 &kp Q             &kp W      &kp E         &kp R                               &kp T                                                                 &kp Y                 &kp U  &kp I               &kp O    &kp P
-&mt LEFT_GUI A    &kp S      &kp D         &kp F                               &kp G            &kp K_MUTE                            &kp MINUS      &kp H                 &kp J  &kp K               &kp L    &kp SQT
+&kp A             &kp S      &kp D         &kp F                               &kp G            &kp K_MUTE                            &kp MINUS      &kp H                 &kp J  &kp K               &kp L    &kp SQT
 &mt LEFT_SHIFT Z  &kp X      &kp C         &kp V                               &kp B            &mo L_SETTING                         &kp SEMICOLON  &kp N                 &kp M  &lt L_SCROLL COMMA  &kp DOT  &lt L_APP SLASH
-&kp LEFT_GUI      &kp LCTRL  &kp LEFT_ALT  &lt_to_apple_touch L_SETTING LANG2  &lt L_NUM SPACE  &lt_to_apple_touch L_ARROW LANG1      &kp BACKSPACE  &lt L_FUNCTION ENTER                                      &kp DEL
+&kp LEFT_GUI      &kp LCTRL  &kp LEFT_ALT  &mod_eisu_touch LEFT_GUI LANG2      &lt L_NUM SPACE  &lt_to_apple_touch L_ARROW LANG1      &kp BACKSPACE  &lt L_FUNCTION ENTER                                      &kp RIGHT_SHIFT
             >;
 
             sensor-bindings = <&encoder_vol_down_up>;
@@ -259,7 +290,7 @@
 &trans        &trans        &kp ASTERISK  &kp SLASH     &none                               &none         &kp MINUS     &kp PLUS      &none         &none
 &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp NUMBER_4  &kp NUMBER_5  &none        &none    &kp NUMBER_6  &kp NUMBER_7  &kp NUMBER_8  &kp NUMBER_9  &kp NUMBER_0
 &kp F1        &kp F2        &kp F3        &kp F4        &kp F5        &kp F11      &kp F12  &kp F6        &kp F7        &kp F8        &kp F9        &kp F10
-&trans        &trans        &trans        &trans        &trans        &trans       &trans   &trans                                                  &none
+&trans        &trans        &trans        &trans        &trans        &trans       &trans   &trans                                                  &trans
             >;
         };
 
@@ -267,17 +298,17 @@
             bindings = <
 &kp MINUS                   &kp KP_NUMBER_7  &kp KP_NUMBER_8  &kp KP_NUMBER_9  &kp PLUS                                                   &kp CARET         &kp AMPERSAND      &kp TILDE       &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS
 &kp SLASH                   &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp KP_NUMBER_6  &kp ASTERISK  &kp LC(LA(KP_NUMBER_0))      &kp UNDERSCORE  &kp EXCLAMATION   &kp AT_SIGN        &kp HASH        &kp DOLLAR            &kp PERCENT
-&mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp KP_NUMBER_3  &kp PERIOD    &kp EQUAL                    &trans          &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp LEFT_BRACE  &kp RIGHT_BRACE       &kp BACKSLASH
+&mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp KP_NUMBER_3  &kp PERIOD    &kp EQUAL                    &kp GRAVE       &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp LEFT_BRACE  &kp RIGHT_BRACE       &kp BACKSLASH
 &trans                      &trans           &trans           &trans           &trans        &trans                       &trans          &trans                                                                     &kp PIPE
             >;
         };
 
         ARROW {
             bindings = <
-&trans  &trans          &kp UP_ARROW    &trans           &trans                          &trans  &trans        &kp LG(UP)    &trans         &trans
-&trans  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &trans  &kp C_MUTE      &trans  &swapper  &kp LG(LEFT)  &kp LG(DOWN)  &kp LG(RIGHT)  &trans
-&trans  &trans          &trans          &trans           &trans  &trans          &trans  &trans  &trans        &trans        &trans         &trans
-&trans  &trans          &trans          &trans           &trans  &trans          &trans  &trans                                             &trans
+&trans          &trans         &trans        &trans        &trans                          &trans    &kp LG(LEFT)    &kp UP_ARROW    &kp LG(RIGHT)    &trans
+&kp LEFT_SHIFT  &kp LCTRL      &kp LEFT_ALT  &kp LEFT_GUI  &trans  &kp C_MUTE      &trans  &swapper  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &trans
+&trans          &trans         &trans        &trans        &trans  &trans          &trans  &trans    &trans          &trans          &trans           &trans
+&trans          &trans         &trans        &trans        &trans  &trans          &trans  &trans                                                     &trans
             >;
 
             sensor-bindings = <&encoder_vol_down_up>;
@@ -321,10 +352,10 @@
 
         TOUCH_ARROW {
             bindings = <
-&trans  &trans  &trans  &trans  &trans                      &trans  &trans       &kp LG(H)      &trans          &trans
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &kp LG(TAB)  &kp LG(SPACE)  &kp LG(LS(N3))  &trans
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans       &trans         &trans          &trans
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans                                              &trans
+&trans  &trans  &trans  &trans  &trans                      &trans  &trans       &trans         &trans      &trans
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans       &trans         &trans      &trans
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &kp LG(TAB)  &kp LG(SPACE)  &kp LG(H)  &kp LG(LS(N3))  &trans
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans                                          &trans
             >;
         };
 
