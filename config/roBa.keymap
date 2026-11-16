@@ -372,7 +372,7 @@
         APP {
             bindings = <
 &kp LA(N1)  &kp LA(N2)  &kp LA(N3)  &trans  &trans                      &trans  &trans  &trans  &trans  &trans
-&kp LA(N4)  &kp LA(N5)  &kp LA(N6)  &trans  &trans  &trans      &trans  &kp F13  &kp F14  &kp F15  &trans  &trans
+&kp LA(N4)  &kp LA(N5)  &kp LA(N6)  &kp LG(LS(N4))  &kp LG(LS(N5))  &trans      &trans  &kp F13  &kp F14  &kp F15  &trans  &trans
 &kp LA(N7)  &kp LA(N8)  &trans      &trans  &trans  &trans      &trans  &kp F16  &kp F17  &kp F18  &trans  &trans
 &trans      &trans      &trans      &trans  &trans  &trans      &trans  &trans                          &trans
             >;
